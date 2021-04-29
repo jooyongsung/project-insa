@@ -52,7 +52,6 @@ import kr.co.digital.insa.vo.emp.SearchVO;
  */
 
 @Controller
-@RequestMapping("/emp/")
 public class EmpController {
 
 	/** EmpService */
