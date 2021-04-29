@@ -154,8 +154,11 @@ public class EmpController {
 	 * @return @ModelAttribute("empVO") - 조회한 정보
 	 * @exception Exception
 	 */
+	@RequestMapping("/selectEmp.do")
 	public EmpVO selectEmp(EmpVO empVO, @ModelAttribute("searchVO") SearchVO searchVO) throws Exception {
-		return empService.selectEmp(empVO);
+		
+		EmpVO vo = 		 empService.selectEmp(empVO);
+		return vo;
 	}
 
 	/**

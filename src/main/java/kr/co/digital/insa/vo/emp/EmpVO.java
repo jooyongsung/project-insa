@@ -49,6 +49,23 @@ public class EmpVO extends SearchVO {
 
 	/** 등록자 */
 	private String regUser;
+	/** 아이디 */
+	private String comm_cd;
+
+	/** 이름 */
+	private String comm_name;
+
+	public String getComm_cd() {
+		return comm_cd;
+	}
+
+	public void setComm_cd(String comm_cd) {
+		this.comm_cd = comm_cd;
+	}
+
+	public String getComm_name() {
+		return comm_name;
+	}
 
 	public String getId() {
 		return id;
