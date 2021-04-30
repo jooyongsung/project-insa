@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="fn"     uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="ui"     uri="http://egovframework.gov/ctl/ui"%>
@@ -25,6 +27,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><spring:message code="title.sample" /></title>
     <link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/sample.css'/>"/>
+    <script type="text/javascript" src="/static/common/js/jquery/jquery-3.4.1.min.js"></script>
+  	<script type="text/javascript" src="/static/common/js/jquery/swiper.min.js"></script>
+  	<script type="text/javascript" src="/static/common/js/jquery/ui-front.js"></script>
+  	<script type="text/javascript" src="/static/common/js/jquery/common.js"></script>
     <script type="text/javaScript" language="javascript" defer="defer">
         <!--
         /* 글 수정 화면 function */
@@ -54,6 +60,24 @@
         }
         
         //-->
+        $(document).ready(function(){
+        	alert(11);
+            var commCd = "AA001";
+            $.ajax({
+    	        url  : '/emp//selectEmp.do',
+    	        type : 'post',
+    	        data : { commCd : commCd},
+    	        success:function(data) {
+    	        	alert("조회되었습니다.");
+    	        	alert(data.commCd);
+    	        },
+    	        error : function(request, status, error ) {   // 오류가 발생했을 때 호출된다. 
+    	        	alert(error);
+    	        	console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    	      	}
+    	    });
+        });
+        
     </script>
 </head>
 

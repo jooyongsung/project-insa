@@ -52,6 +52,7 @@ import kr.co.digital.insa.vo.emp.SearchVO;
  */
 
 @Controller
+@RequestMapping("/emp/")
 public class EmpController {
 
 	/** EmpService */
@@ -86,10 +87,12 @@ public class EmpController {
 		searchVO.setLastIndex(paginationInfo.getLastRecordIndex());
 		searchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 
-		List<?> empList = empService.selectEmpList(searchVO);
-		model.addAttribute("resultList", empList);
+		//List<?> empList = empService.selectEmpList(searchVO);
+		//model.addAttribute("resultList", empList);
+		model.addAttribute("resultList", null);
 
-		int totCnt = empService.selectEmpListTotCnt(searchVO);
+		//int totCnt = empService.selectEmpListTotCnt(searchVO);
+		int totCnt = 0;
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 
@@ -155,8 +158,8 @@ public class EmpController {
 	 */
 	@RequestMapping("/selectEmp.do")
 	public EmpVO selectEmp(EmpVO empVO, @ModelAttribute("searchVO") SearchVO searchVO) throws Exception {
-		
-		EmpVO vo = 		 empService.selectEmp(empVO);
+		System.out.println("~~~~~");
+		EmpVO vo = empService.selectEmp(empVO);
 		return vo;
 	}
 

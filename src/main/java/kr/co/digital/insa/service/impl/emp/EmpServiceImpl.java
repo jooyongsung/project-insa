@@ -119,10 +119,7 @@ public class EmpServiceImpl extends EgovAbstractServiceImpl implements EmpServic
 	 */
 	@Override
 	public EmpVO selectEmp(EmpVO vo) throws Exception {
-		System.out.println("test impl");
-		EmpVO resultVO = empMapper.selectEmp(vo);
-		System.out.println("test impl" + resultVO.getComm_cd());
-		return resultVO;
+		return empMapper.selectEmp(vo);
 	}
 
 	/**

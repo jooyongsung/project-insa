@@ -59,18 +59,6 @@
         }
         
         -->
-        var empId = "";
-        $.ajax({
-	        url  : '/emp/updateEmpAjax.do',
-	        type : 'post',
-	        data : { empId : empId},
-	        success:function(data) {
-	        	alert("수정되었습니다.");
-	        },
-	        error : function(request, status, error ) {   // 오류가 발생했을 때 호출된다. 
-	        	console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	      	}
-	    });
     </script>
 </head>
 <body style="text-align:center; margin:0 auto; display:inline; padding-top:100px;">
