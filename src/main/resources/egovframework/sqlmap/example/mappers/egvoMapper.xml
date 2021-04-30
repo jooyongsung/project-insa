@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="egovframework.example.sample.service.impl.SampleMapper">
 
-	<insert id="insertSample" parameterType="SampleVO">
+	<insert id="insertSample" parameterType="int">
 
 			INSERT INTO SAMPLE
 				( ID
