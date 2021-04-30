@@ -53,7 +53,7 @@ public class EmpVO extends SearchVO {
 	private String comm_cd;
 
 	/** 이름 */
-	private String comm_name;
+	private String comm_nm;
 
 	public String getComm_cd() {
 		return comm_cd;
@@ -63,8 +63,8 @@ public class EmpVO extends SearchVO {
 		this.comm_cd = comm_cd;
 	}
 
-	public String getComm_name() {
-		return comm_name;
+	public String getComm_nm() {
+		return comm_nm;
 	}
 
 	public String getId() {

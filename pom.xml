@@ -17,8 +17,18 @@
     </licenses>
 
 	<properties>
+		<!-- encoding -->
+    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    	
+    	<!-- Java -->
+    	<java.version>1.8</java.version>
+    	<!-- String -->
 	    <spring.maven.artifact.version>4.3.25.RELEASE</spring.maven.artifact.version>
 		<egovframework.rte.version>3.10.0</egovframework.rte.version>
+		
+		<!-- mybatis -->
+        <org.mybatis.version>3.3.1</org.mybatis.version>
+        <org.mybatis.spring.version>1.2.4</org.mybatis.spring.version>
 	</properties>
 
 	<repositories>
@@ -117,7 +127,7 @@
 	        <artifactId>antlr</artifactId>
 	        <version>3.5</version>
    		</dependency>
-
+   		
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
@@ -148,13 +158,42 @@
             <version>5.1.31</version>
         </dependency>
 
-       <!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp -->
+       <!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp
 		<dependency>
 		    <groupId>commons-dbcp</groupId>
 		    <artifactId>commons-dbcp</artifactId>
 		    <version>1.4</version>
 		</dependency>
-
+ -->
+ 		<dependency>
+		    <groupId>com.oracle</groupId>
+		    <artifactId>ojdbc8</artifactId>
+		    <version>12.2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.0</version>
+			<scope>provided</scope>
+		</dependency> 
+		
+		   		<!-- mybatis -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>${org.mybatis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>${org.mybatis.spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.miemiedev</groupId>
+            <artifactId>mybatis-paginator</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+		
 	</dependencies>
 
 	<build>

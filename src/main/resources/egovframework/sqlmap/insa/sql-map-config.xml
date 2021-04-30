@@ -2,5 +2,5 @@
 <!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
 
 <sqlMapConfig>
-	<sqlMap resource="egovframework/sqlmap/insa/mappers/Insa_Emp_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/insa/mappers/empMapper.xml"/>
 </sqlMapConfig>

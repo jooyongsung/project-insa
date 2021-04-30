@@ -13,5 +13,9 @@
  	<bean class="egovframework.rte.psl.dataaccess.mapper.MapperConfigurer">
 		<property name="basePackage" value="kr.co.digital.insa.service.impl" />
 	</bean>
-    
+	
+	<!-- Mybatis Session Template -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSession"/>
+	</bean>    
 </beans>

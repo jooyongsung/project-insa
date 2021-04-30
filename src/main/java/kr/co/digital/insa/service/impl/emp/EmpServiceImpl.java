@@ -51,6 +51,12 @@ import org.springframework.stereotype.Service;
 public class EmpServiceImpl extends EgovAbstractServiceImpl implements EmpService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmpServiceImpl.class);
+	
+	/**
+	 * EmpMapper
+	 */
+	@Resource(name = "empMapper")
+	private EmpMapper empMapper;
 
 	/** EmpDAO */
 	// TODO ibatis 사용
@@ -113,9 +119,9 @@ public class EmpServiceImpl extends EgovAbstractServiceImpl implements EmpServic
 	 */
 	@Override
 	public EmpVO selectEmp(EmpVO vo) throws Exception {
-		EmpVO resultVO = empDAO.selectEmp(vo);
-		if (resultVO == null)
-			throw processException("info.nodata.msg");
+		System.out.println("test impl");
+		EmpVO resultVO = empMapper.selectEmp(vo);
+		System.out.println("test impl" + resultVO.getComm_cd());
 		return resultVO;
 	}
 
