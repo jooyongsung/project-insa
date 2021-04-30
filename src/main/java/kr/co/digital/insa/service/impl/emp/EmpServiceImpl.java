@@ -16,6 +16,7 @@
 package kr.co.digital.insa.service.impl.emp;
 
 import java.util.List;
+import java.util.Map;
 
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import egovframework.rte.fdl.idgnr.EgovIdGnrService;
@@ -118,7 +119,7 @@ public class EmpServiceImpl extends EgovAbstractServiceImpl implements EmpServic
 	 * @exception Exception
 	 */
 	@Override
-	public EmpVO selectEmp(EmpVO vo) throws Exception {
+	public List<Map>  selectEmp(EmpVO vo) throws Exception {
 		return empMapper.selectEmp(vo);
 	}
 

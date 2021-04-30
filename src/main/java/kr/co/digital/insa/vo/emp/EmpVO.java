@@ -50,21 +50,27 @@ public class EmpVO extends SearchVO {
 	/** 등록자 */
 	private String regUser;
 	/** 아이디 */
-	private String comm_cd;
+	private String commCd;
 
 	/** 이름 */
-	private String comm_nm;
+	private String commNm;
 
-	public String getComm_cd() {
-		return comm_cd;
+
+
+	public String getCommCd() {
+		return commCd;
 	}
 
-	public void setComm_cd(String comm_cd) {
-		this.comm_cd = comm_cd;
+	public void setCommCd(String commCd) {
+		this.commCd = commCd;
 	}
 
-	public String getComm_nm() {
-		return comm_nm;
+	public String getCommNm() {
+		return commNm;
+	}
+
+	public void setCommNm(String commNm) {
+		this.commNm = commNm;
 	}
 
 	public String getId() {

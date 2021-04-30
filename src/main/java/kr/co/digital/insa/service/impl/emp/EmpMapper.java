@@ -16,6 +16,7 @@
 package kr.co.digital.insa.service.impl.emp;
 
 import java.util.List;
+import java.util.Map;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import kr.co.digital.insa.vo.emp.EmpVO;
@@ -69,7 +70,7 @@ public interface EmpMapper {
 	 * @return 조회한 글
 	 * @exception Exception
 	 */
-	EmpVO selectEmp(EmpVO vo) throws Exception;
+	List<Map> selectEmp(EmpVO vo) throws Exception;
 
 	/**
 	 * 글 목록을 조회한다.

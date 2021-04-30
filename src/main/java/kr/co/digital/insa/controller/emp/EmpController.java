@@ -15,7 +15,9 @@
  */
 package kr.co.digital.insa.controller.emp;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -27,6 +29,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import egovframework.rte.fdl.property.EgovPropertyService;
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
@@ -156,11 +161,14 @@ public class EmpController {
 	 * @return @ModelAttribute("empVO") - 조회한 정보
 	 * @exception Exception
 	 */
-	@RequestMapping("/selectEmp.do")
-	public EmpVO selectEmp(EmpVO empVO, @ModelAttribute("searchVO") SearchVO searchVO) throws Exception {
-		System.out.println("~~~~~");
-		EmpVO vo = empService.selectEmp(empVO);
-		return vo;
+	@RequestMapping(value="/selectEmp.do", produces="application/text;charset=utf8")
+	@ResponseBody 
+	public String selectEmp(EmpVO empVO, @ModelAttribute("searchVO") SearchVO searchVO) throws Exception {
+		List<Map>  list = empService.selectEmp(empVO);
+		Map map = (Map) list.get(0);
+		ObjectMapper mapper = new ObjectMapper();
+    	System.out.println("test::"+mapper.writeValueAsString(list));
+		return mapper.writeValueAsString(list);
 	}
 
 	/**

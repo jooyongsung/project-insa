@@ -67,9 +67,13 @@
     	        url  : '/emp//selectEmp.do',
     	        type : 'post',
     	        data : { commCd : commCd},
+    	        contextType: "application/x-www-form-urlencoded; charset=UTF-8",
+    	        datatype: 'json',
     	        success:function(data) {
     	        	alert("조회되었습니다.");
-    	        	alert(data.commCd);
+    	        	alert(data);
+    	        	var jsonData = JSON.parse(data);
+    	        	alert(jsonData[0].commNm);
     	        },
     	        error : function(request, status, error ) {   // 오류가 발생했을 때 호출된다. 
     	        	alert(error);

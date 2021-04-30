@@ -16,6 +16,7 @@
 package kr.co.digital.insa.service.emp;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.digital.insa.vo.emp.EmpVO;
 import kr.co.digital.insa.vo.emp.SearchVO;
@@ -68,7 +69,7 @@ public interface EmpService {
 	 * @return 조회한 글
 	 * @exception Exception
 	 */
-	EmpVO selectEmp(EmpVO vo) throws Exception;
+	List<Map> selectEmp(EmpVO vo) throws Exception;
 
 	/**
 	 * 글 목록을 조회한다.

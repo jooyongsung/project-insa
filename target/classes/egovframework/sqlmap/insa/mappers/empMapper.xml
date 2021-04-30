@@ -36,7 +36,7 @@
 
 	</delete>
 
-	<select id="selectEmp" resultType="kr.co.digital.insa.vo.emp.EmpVO">
+	<select id="selectEmp" resultType="egovMap">
 
 			SELECT
 				COMM_CD, COMM_NM
