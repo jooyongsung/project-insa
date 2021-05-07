@@ -29,7 +29,8 @@
 		]]>
 	</insert>
 <!--  
-	<update id="updateSample">
+
+	<update id="updateEmp">
 
 			UPDATE SAMPLE
 			SET ID=#{id}
@@ -40,7 +41,7 @@
 
 	</update>
 
-	<delete id="deleteSample">
+	<delete id="deleteEmp">
 
 			DELETE FROM SAMPLE
 			WHERE ID=#{id}
@@ -83,6 +84,7 @@
 			</if>
 			-->
 	</select>
+
 	<!-- 
 	<select id="getNextEmpId" resultType="egovMap">
 		select 
