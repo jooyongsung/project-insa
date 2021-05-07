@@ -98,7 +98,7 @@ public class EmpServiceImpl extends EgovAbstractServiceImpl implements EmpServic
 	 */
 	@Override
 	public void updateEmp(EmpVO vo) throws Exception {
-		empDAO.updateEmp(vo);
+		empMapper.updateEmp(vo);
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class EmpServiceImpl extends EgovAbstractServiceImpl implements EmpServic
 	 */
 	@Override
 	public void deleteEmp(EmpVO vo) throws Exception {
-		empDAO.deleteEmp(vo);
+		empMapper.deleteEmp(vo);
 	}
 
 	/**
@@ -131,7 +131,7 @@ public class EmpServiceImpl extends EgovAbstractServiceImpl implements EmpServic
 	 */
 	@Override
 	public List<?> selectEmpList(SearchVO searchVO) throws Exception {
-		return empDAO.selectEmpList(searchVO);
+		return empMapper.selectEmpList(searchVO);
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class EmpServiceImpl extends EgovAbstractServiceImpl implements EmpServic
 	 */
 	@Override
 	public int selectEmpListTotCnt(SearchVO searchVO) {
-		return empDAO.selectEmpListTotCnt(searchVO);
+		return empMapper.selectEmpListTotCnt(searchVO);
 	}
 
 }

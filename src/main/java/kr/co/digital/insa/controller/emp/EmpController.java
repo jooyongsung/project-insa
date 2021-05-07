@@ -92,7 +92,7 @@ public class EmpController {
 		searchVO.setLastIndex(paginationInfo.getLastRecordIndex());
 		searchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 
-		//List<?> empList = empService.selectEmpList(searchVO);
+		List<?> empList = empService.selectEmpList(searchVO);
 		//model.addAttribute("resultList", empList);
 		model.addAttribute("resultList", null);
 
