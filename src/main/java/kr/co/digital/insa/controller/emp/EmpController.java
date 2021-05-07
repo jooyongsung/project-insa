@@ -15,11 +15,12 @@
  */
 package kr.co.digital.insa.controller.emp;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.activation.CommandMap;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,9 +30,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import egovframework.rte.fdl.property.EgovPropertyService;
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
@@ -76,30 +76,30 @@ public class EmpController {
 	 * @exception Exception
 	 */
 	@RequestMapping(value = "/empList.do")
-	public String selectEmpList(@ModelAttribute("searchVO") SearchVO searchVO, ModelMap model) throws Exception {
+	public String selectEmpList(@ModelAttribute("empVO") EmpVO empVO, Model model) throws Exception {
 
 		/** EgovPropertyService.emp */
-		searchVO.setPageUnit(propertiesService.getInt("pageUnit"));
-		searchVO.setPageSize(propertiesService.getInt("pageSize"));
+//		searchVO.setPageUnit(propertiesService.getInt("pageUnit"));
+//		searchVO.setPageSize(propertiesService.getInt("pageSize"));
 
 		/** pageing setting */
-		PaginationInfo paginationInfo = new PaginationInfo();
-		paginationInfo.setCurrentPageNo(searchVO.getPageIndex());
-		paginationInfo.setRecordCountPerPage(searchVO.getPageUnit());
-		paginationInfo.setPageSize(searchVO.getPageSize());
+//		PaginationInfo paginationInfo = new PaginationInfo();
+//		paginationInfo.setCurrentPageNo(searchVO.getPageIndex());
+//		paginationInfo.setRecordCountPerPage(searchVO.getPageUnit());
+//		paginationInfo.setPageSize(searchVO.getPageSize());
 
-		searchVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
-		searchVO.setLastIndex(paginationInfo.getLastRecordIndex());
-		searchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
-
-		//List<?> empList = empService.selectEmpList(searchVO);
-		//model.addAttribute("resultList", empList);
-		model.addAttribute("resultList", null);
-
+//		searchVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
+//		searchVO.setLastIndex(paginationInfo.getLastRecordIndex());
+//		searchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
+		
+		List<Map> empList = empService.selectEmpList(empVO);
+	
+		model.addAttribute("resultList", empList);
+		System.out.println(empList);
+		
 		//int totCnt = empService.selectEmpListTotCnt(searchVO);
-		int totCnt = 0;
-		paginationInfo.setTotalRecordCount(totCnt);
-		model.addAttribute("paginationInfo", paginationInfo);
+		///paginationInfo.setTotalRecordCount(totCnt);
+//		model.addAttribute("paginationInfo", paginationInfo);
 
 		return "emp/empList";
 	}
@@ -111,10 +111,12 @@ public class EmpController {
 	 * @return "empRegister"
 	 * @exception Exception
 	 */
-	@RequestMapping(value = "/addEmp.do", method = RequestMethod.GET)
-	public String addEmpView(@ModelAttribute("searchVO") SearchVO searchVO, Model model) throws Exception {
+	
+	@RequestMapping(value = "/insertEmp.do", method = RequestMethod.GET)
+	public String insertEmpView(@ModelAttribute("empVO") EmpVO empVO, Model model) throws Exception {
+		
 		model.addAttribute("empVO", new EmpVO());
-		return "emp/empRegister";
+		return "/emp/empRegister";
 	}
 
 	/**
@@ -124,17 +126,21 @@ public class EmpController {
 	 * @return "forward:/empList.do"
 	 * @exception Exception
 	 */
-	@RequestMapping(value = "/addEmp.do", method = RequestMethod.POST)
-	public String addEmp(@ModelAttribute("searchVO") SearchVO searchVO, EmpVO empVO, BindingResult bindingResult, Model model)
-			throws Exception {
 
+	@RequestMapping(value = "/insertEmp.do", method = RequestMethod.POST)
+	public String insertEmp(@ModelAttribute("empVO") EmpVO empVO, BindingResult bindingResult, Model model, SessionStatus status) throws Exception {
+		
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("empVO", empVO);
 			return "emp/empRegister";
 		}
-
+		
+		System.out.println(empVO);
+		
 		empService.insertEmp(empVO);
-		return "forward:/empList.do";
+			
+		status.setComplete();
+		return "forward:/emp/empList.do";
 	}
 
 	/**
@@ -145,6 +151,7 @@ public class EmpController {
 	 * @return "empRegister"
 	 * @exception Exception
 	 */
+	/*
 	@RequestMapping("/updateEmpView.do")
 	public String updateEmpView(@RequestParam("selectedId") String id, @ModelAttribute("searchVO") SearchVO searchVO, Model model) throws Exception {
 		EmpVO empVO = new EmpVO();
@@ -153,7 +160,8 @@ public class EmpController {
 		model.addAttribute(selectEmp(empVO, searchVO));
 		return "emp/empRegister";
 	}
-
+	*/
+	
 	/**
 	 * 글을 조회한다.
 	 * @param empVO - 조회할 정보가 담긴 VO
@@ -161,14 +169,13 @@ public class EmpController {
 	 * @return @ModelAttribute("empVO") - 조회한 정보
 	 * @exception Exception
 	 */
-	@RequestMapping(value="/selectEmp.do", produces="application/text;charset=utf8")
-	@ResponseBody 
-	public String selectEmp(EmpVO empVO, @ModelAttribute("searchVO") SearchVO searchVO) throws Exception {
-		List<Map>  list = empService.selectEmp(empVO);
-		Map map = (Map) list.get(0);
-		ObjectMapper mapper = new ObjectMapper();
-    	System.out.println("test::"+mapper.writeValueAsString(list));
-		return mapper.writeValueAsString(list);
+	
+	@RequestMapping(value="/selectEmp.do")
+	public @ModelAttribute("empVO") EmpVO selectEmp(EmpVO vo) throws Exception {
+		System.out.println(vo);
+		
+		return empService.selectEmp(vo);
+    	
 	}
 
 	/**

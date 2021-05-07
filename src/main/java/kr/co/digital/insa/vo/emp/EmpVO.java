@@ -54,8 +54,106 @@ public class EmpVO extends SearchVO {
 
 	/** 이름 */
 	private String commNm;
+	
+	private String emp_No;
+	private String emp_Name;
+	private String emp_Eng_Name;
+	private String emp_Sex;
+	private String emp_Email;
+	private String emp_Phone;
+	private String emp_Position; //직책
+	private String emp_Rank; //직급
+	private String emp_Hire_Date; //입사일
+	private String emp_Retire_Date; //퇴사일
+	private String emp_Work; //재직구분
 
+	public String getEmp_No() {
+		return emp_No;
+	}
 
+	public void setEmp_No(String emp_No) {
+		this.emp_No = emp_No;
+	}
+
+	public String getEmp_Name() {
+		return emp_Name;
+	}
+
+	public void setEmp_Name(String emp_Name) {
+		this.emp_Name = emp_Name;
+	}
+
+	public String getEmp_Eng_Name() {
+		return emp_Eng_Name;
+	}
+
+	public void setEmp_Eng_Name(String emp_Eng_Name) {
+		this.emp_Eng_Name = emp_Eng_Name;
+	}
+
+	public String getEmp_Sex() {
+		return emp_Sex;
+	}
+
+	public void setEmp_Sex(String emp_Sex) {
+		this.emp_Sex = emp_Sex;
+	}
+
+	public String getEmp_Email() {
+		return emp_Email;
+	}
+
+	public void setEmp_Email(String emp_Email) {
+		this.emp_Email = emp_Email;
+	}
+
+	public String getEmp_Phone() {
+		return emp_Phone;
+	}
+
+	public void setEmp_Phone(String emp_Phone) {
+		this.emp_Phone = emp_Phone;
+	}
+
+	public String getEmp_Position() {
+		return emp_Position;
+	}
+
+	public void setEmp_Position(String emp_Position) {
+		this.emp_Position = emp_Position;
+	}
+
+	public String getEmp_Rank() {
+		return emp_Rank;
+	}
+
+	public void setEmp_Rank(String emp_Rank) {
+		this.emp_Rank = emp_Rank;
+	}
+
+	public String getEmp_Hire_Date() {
+		return emp_Hire_Date;
+	}
+
+	public void setEmp_Hire_Date(String emp_Hire_Date) {
+		this.emp_Hire_Date = emp_Hire_Date;
+	}
+
+	public String getEmp_Retire_Date() {
+		return emp_Retire_Date;
+	}
+
+	public void setEmp_Retire_Date(String emp_Retire_Date) {
+		this.emp_Retire_Date = emp_Retire_Date;
+	}
+
+	public String getEmp_Work() {
+		return emp_Work;
+	}
+
+	public void setEmp_Work(String emp_Work) {
+		this.emp_Work = emp_Work;
+	}
 
 	public String getCommCd() {
 		return commCd;

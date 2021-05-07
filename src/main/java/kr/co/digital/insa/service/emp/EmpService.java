@@ -18,6 +18,8 @@ package kr.co.digital.insa.service.emp;
 import java.util.List;
 import java.util.Map;
 
+import javax.activation.CommandMap;
+
 import kr.co.digital.insa.vo.emp.EmpVO;
 import kr.co.digital.insa.vo.emp.SearchVO;
 
@@ -45,7 +47,7 @@ public interface EmpService {
 	 * @return 등록 결과
 	 * @exception Exception
 	 */
-	String insertEmp(EmpVO vo) throws Exception;
+	void insertEmp(EmpVO empVO) throws Exception;
 
 	/**
 	 * 글을 수정한다.
@@ -69,7 +71,7 @@ public interface EmpService {
 	 * @return 조회한 글
 	 * @exception Exception
 	 */
-	List<Map> selectEmp(EmpVO vo) throws Exception;
+	EmpVO selectEmp(EmpVO vo) throws Exception;
 
 	/**
 	 * 글 목록을 조회한다.
@@ -77,7 +79,7 @@ public interface EmpService {
 	 * @return 글 목록
 	 * @exception Exception
 	 */
-	List<?> selectEmpList(SearchVO searchVO) throws Exception;
+	List<Map> selectEmpList(EmpVO empVO) throws Exception;
 
 	/**
 	 * 글 총 갯수를 조회한다.
@@ -85,6 +87,7 @@ public interface EmpService {
 	 * @return 글 총 갯수
 	 * @exception
 	 */
+	
 	int selectEmpListTotCnt(SearchVO searchVO);
 
 }

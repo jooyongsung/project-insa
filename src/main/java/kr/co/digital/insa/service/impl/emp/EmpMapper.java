@@ -46,8 +46,8 @@ public interface EmpMapper {
 	 * @return 등록 결과
 	 * @exception Exception
 	 */
-	void insertEmp(EmpVO vo) throws Exception;
-
+	int insertEmp(EmpVO empVO) throws Exception;
+	
 	/**
 	 * 글을 수정한다.
 	 * @param vo - 수정할 정보가 담긴 EmpVO
@@ -70,7 +70,9 @@ public interface EmpMapper {
 	 * @return 조회한 글
 	 * @exception Exception
 	 */
-	List<Map> selectEmp(EmpVO vo) throws Exception;
+	public default EmpVO selectEmp(EmpVO vo) throws Exception {
+		return (EmpVO) selectEmp(vo); 
+	}
 
 	/**
 	 * 글 목록을 조회한다.
@@ -78,7 +80,7 @@ public interface EmpMapper {
 	 * @return 글 목록
 	 * @exception Exception
 	 */
-	List<?> selectEmpList(SearchVO searchVO) throws Exception;
+	List<Map> selectEmpList(EmpVO empVO) throws Exception;
 
 	/**
 	 * 글 총 갯수를 조회한다.
@@ -87,5 +89,7 @@ public interface EmpMapper {
 	 * @exception
 	 */
 	int selectEmpListTotCnt(SearchVO searchVO);
+	
+	String getNextEmpId() throws Exception;
 
 }

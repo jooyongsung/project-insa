@@ -30,30 +30,50 @@
     <validator:javascript formName="empVO" staticJavascript="false" xhtml="true" cdata="false"/>
     -->
     <script type="text/javaScript" language="javascript" defer="defer">
-       /* 글 목록 화면 function */
+        <!--
+        /* 글 목록 화면 function */
         function fn_egov_selectList() {
-           	document.detailForm.action = "<c:url value='/emp/empList.do'/>";
+           	document.detailForm.action = "<c:url value='/egovSampleList.do'/>";
+           	document.detailForm.submit();
+        }
+        
+        /* 글 삭제 function */
+        function fn_egov_delete() {
+           	document.detailForm.action = "<c:url value='/deleteSample.do'/>";
            	document.detailForm.submit();
         }
         
         /* 글 등록 function */
         function fn_egov_save() {
-        	frm = document.registerForm;
-        /* 	if(!validateSampleVO(frm)){
+        	frm = document.detailForm;
+        	if(!validateSampleVO(frm)){
                 return;
-            }else{ */
-            	//frm.action = "<c:url value="${registerFlag == 'create' ? '/addSample.do' : '/updateSample.do'}"/>";
-            	
-            	frm.action = "<c:url value='/emp/insertEmp.do'/>";
+            }else{
+            	frm.action = "<c:url value="/*${registerFlag == 'create' ? '/addSample.do' : '/updateSample.do'}"/>";*/
                 frm.submit();
-           // }
+            }
         }
-
+        
+        -->
+        <!--
+        var empId = "";
+        $.ajax({
+	        url  : '/emp/updateEmpAjax.do',
+	        type : 'post',
+	        data : { empId : empId},
+	        success:function(data) {
+	        	alert("수정되었습니다.");
+	        },
+	        error : function(request, status, error ) {   // 오류가 발생했을 때 호출된다. 
+	        	console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	      	}
+	    });
+        -->
     </script>
 </head>
 <body style="text-align:center; margin:0 auto; display:inline; padding-top:100px;">
 
-<form:form commandName="empVO" id="registerForm" name="registerForm">
+<form:form commandName="empVO" id="registerForm" name="registerForm" method="post">
     <div id="content_pop">
     	<!-- // 타이틀 -->
     	<div id="table">
@@ -122,15 +142,15 @@
     			</td>
     		</tr>
     		<tr>
-    			<td class="tbtd_caption"><label for="empHireDate">입사날짜</label></td>
+    			<td class="tbtd_caption"><label for="empHiredate">입사날짜</label></td>
     			<td class="tbtd_content">
-    				<form:input path="empHireDate" maxlength="30" cssClass="date" type="date"/>
+    				<form:input path="empHiredate" maxlength="30" cssClass="txt"/>
     			</td>
     		</tr>
     		<tr>
-    			<td class="tbtd_caption"><label for="empRetireDate">퇴사날짜</label></td>
+    			<td class="tbtd_caption"><label for="empRetiredate">퇴사날짜</label></td>
     			<td class="tbtd_content">
-    				<form:input path="empRetireDate" maxlength="30" cssClass="date" type="date"/>
+    				<form:input path="empRetiredate" maxlength="30" cssClass="txt"/>
     			</td>
     		</tr>
     		<tr>
@@ -164,7 +184,7 @@
     			<!-- 등록 버튼 -->
     			<li>
                     <span class="btn_blue_l">
-                        <a href="javascript:fn_egov_save();"><spring:message code="button.create" /></a>
+                        <button type="submit"><spring:message code="button.create" /></button>
                         <img src="<c:url value='/images/egovframework/example/btn_bg_r.gif'/>" style="margin-left:6px;" alt=""/>
                     </span>
                 </li>
@@ -172,6 +192,22 @@
     			<li>
                     <span class="btn_blue_l">
                         <a href="empList.do"><spring:message code="button.list" /></a>
+                        <img src="<c:url value='/images/egovframework/example/btn_bg_r.gif'/>" style="margin-left:6px;" alt=""/>
+                    </span>
+                </li>
+                <!--  수정 버튼 -->
+                <li>
+                    <span class="btn_blue_l">
+                        <a href="updateEmp.do">
+                            <spring:message code="button.modify" />
+                        </a>
+                        <img src="<c:url value='/images/egovframework/example/btn_bg_r.gif'/>" style="margin-left:6px;" alt=""/>
+                    </span>
+                </li>
+                <!--  삭제 버튼 -->
+                <li>
+                    <span class="btn_blue_l">
+                        <a href=""><spring:message code="button.delete" /></a>
                         <img src="<c:url value='/images/egovframework/example/btn_bg_r.gif'/>" style="margin-left:6px;" alt=""/>
                     </span>
                 </li>

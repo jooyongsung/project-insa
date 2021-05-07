@@ -5,22 +5,7 @@
 <%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="ui"     uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%
-  /**
-  * @Class Name : egovSampleList.jsp
-  * @Description : Sample List 화면
-  * @Modification Information
-  *
-  *   수정일         수정자                   수정내용
-  *  -------    --------    ---------------------------
-  *  2009.02.01            최초 생성
-  *
-  * author 실행환경 개발팀
-  * since 2009.02.01
-  *
-  * Copyright (C) 2009 by MOPAS  All right reserved.
-  */
-%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
 <head>
@@ -33,24 +18,6 @@
   	<script type="text/javascript" src="/static/common/js/jquery/common.js"></script>
     <script type="text/javaScript" language="javascript" defer="defer">
         <!--
-        /* 글 수정 화면 function */
-        function fn_egov_select(id) {
-        	document.listForm.selectedId.value = id;
-           	document.listForm.action = "<c:url value='/updateSampleView.do'/>";
-           	document.listForm.submit();
-        }
-        
-        /* 글 등록 화면 function */
-        function fn_egov_addView() {
-           	document.listForm.action = "<c:url value='/addSample.do'/>";
-           	document.listForm.submit();
-        }
-        
-        /* 글 목록 화면 function */
-        function fn_egov_selectList() {
-        	document.listForm.action = "<c:url value='/egovSampleList.do'/>";
-           	document.listForm.submit();
-        }
         
         /* pagination 페이지 링크 function */
         function fn_egov_link_page(pageNo){
@@ -58,35 +25,18 @@
         	document.listForm.action = "<c:url value='/egovSampleList.do'/>";
            	document.listForm.submit();
         }
-        
-        //-->
-        $(document).ready(function(){
-        	alert(11);
-            var commCd = "AA001";
-            $.ajax({
-    	        url  : '/emp//selectEmp.do',
-    	        type : 'post',
-    	        data : { commCd : commCd},
-    	        contextType: "application/x-www-form-urlencoded; charset=UTF-8",
-    	        datatype: 'json',
-    	        success:function(data) {
-    	        	alert("조회되었습니다.");
-    	        	alert(data);
-    	        	var jsonData = JSON.parse(data);
-    	        	alert(jsonData[0].commNm);
-    	        },
-    	        error : function(request, status, error ) {   // 오류가 발생했을 때 호출된다. 
-    	        	alert(error);
-    	        	console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-    	      	}
-    	    });
-        });
-        
+
+      //-->
+        function fn_emp_detail(empNo){
+        	dovument.listForm.addParam("empNo", val.parent().find("empNo").val());
+        	document.listForm.setUrl("<c:url value='/emp/selectEmp.do'/>");
+        	document.listForm.submit();
+        }
     </script>
 </head>
 
 <body style="text-align:center; margin:0 auto; display:inline; padding-top:100px;">
-    <form:form commandName="searchVO" id="listForm" name="listForm" method="post">
+    <form:form commandName="empVO" id="listForm" name="listForm" method="post">
         <input type="hidden" name="selectedId" />
         <div id="content_pop">
         	<!-- 타이틀 -->
@@ -101,8 +51,11 @@
         			<li>
         			    <label for="searchCondition" style="visibility:hidden;"><spring:message code="search.choose" /></label>
         				<form:select path="searchCondition" cssClass="use">
-        					<form:option value="1" label="Name" />
-        					<form:option value="0" label="ID" />
+        					<form:option value="1" label="이름" />
+        					<form:option value="2" label="사원명" />
+        					<form:option value="3" label="이메일" />
+        					<form:option value="4" label="직책" />
+        					<form:option value="5" label="직급" />
         				</form:select>
         			</li>
         			<li><label for="searchKeyword" style="visibility:hidden;display:none;"><spring:message code="search.keyword" /></label>
@@ -118,32 +71,47 @@
         	</div>
         	<!-- List -->
         	<div id="table">
-        		<table width="100%" border="0" cellpadding="0" cellspacing="0" summary="카테고리ID, 케테고리명, 사용여부, Description, 등록자 표시하는 테이블">
-        			<caption style="visibility:hidden">카테고리ID, 케테고리명, 사용여부, Description, 등록자 표시하는 테이블</caption>
+        		<table width="100%" border="0" cellpadding="0" cellspacing="0" summary="사원번호, 사원명, 영문이름, 이메일, 전화번호, 성별, 직급, 직책, 입사연도, 퇴사연도, 재직구분">
+        			<caption style="visibility:hidden">사원번호, 사원명, 영문이름, 이메일, 전화번호, 성별, 직급, 직책, 입사연도, 퇴사연도, 재직구분</caption>
         			<colgroup>
-        				<col width="40"/>
-        				<col width="100"/>
-        				<col width="150"/>
-        				<col width="80"/>
-        				<col width="?"/>
         				<col width="60"/>
+        				<col width="100"/>
+        				<col width="100"/>
+        				<col width="100"/>
+        				<col width="100"/>
+        				<col width="60"/>
+        				<col width="80"/>
+        				<col width="80"/>
+        				<col width="100"/>
+        				<col width="100"/>
+        				<col width="80"/>
         			</colgroup>
         			<tr>
-        				<th align="center">No</th>
-        				<th align="center"><spring:message code="title.sample.id" /></th>
-        				<th align="center"><spring:message code="title.sample.name" /></th>
-        				<th align="center"><spring:message code="title.sample.useYn" /></th>
-        				<th align="center"><spring:message code="title.sample.description" /></th>
-        				<th align="center"><spring:message code="title.sample.regUser" /></th>
+        				<th align="center">사번</th>
+        				<th align="center">사원명</th>
+        				<th align="center">영문이름</th>
+        				<th align="center">이메일</th>
+        				<th align="center">전화번호</th>
+        				<th align="center">성별</th>
+        				<th align="center">직급</th>
+        				<th align="center">직책</th>
+        				<th align="center">입사연도</th>
+        				<th align="center">퇴사연도</th>
+        				<th align="center">재직구분</th>
         			</tr>
-        			<c:forEach var="result" items="${resultList}" varStatus="status">
+        			<c:forEach var="item" items="${resultList}" varStatus="status">
             			<tr>
-            				<td align="center" class="listtd"><c:out value="${paginationInfo.totalRecordCount+1 - ((searchVO.pageIndex-1) * searchVO.pageSize + status.count)}"/></td>
-            				<td align="center" class="listtd"><a href="javascript:fn_egov_select('<c:out value="${result.id}"/>')"><c:out value="${result.id}"/></a></td>
-            				<td align="left" class="listtd"><c:out value="${result.name}"/>&nbsp;</td>
-            				<td align="center" class="listtd"><c:out value="${result.useYn}"/>&nbsp;</td>
-            				<td align="center" class="listtd"><c:out value="${result.description}"/>&nbsp;</td>
-            				<td align="center" class="listtd"><c:out value="${result.regUser}"/>&nbsp;</td>
+            				<td align="left" class="listtd"><input type="hidden" id="empNo" value="${item.empNo}"/><a href="javascript:fn_emp_detail(empNo);" /><c:out value="${item.empNo}"/>&nbsp;</td>
+            				<td align="center" class="listtd"><c:out value="${item.empName}"/>&nbsp;</td>
+            				<td align="center" class="listtd"><c:out value="${item.empEngName}"/>&nbsp;</td>
+            				<td align="center" class="listtd"><c:out value="${item.empEmail}"/>&nbsp;</td>
+            				<td align="center" class="listtd"><c:out value="${item.empPhone}"/>&nbsp;</td>
+            				<td align="center" class="listtd"><c:out value="${item.empSex}"/>&nbsp;</td>
+            				<td align="center" class="listtd"><c:out value="${item.empRank}"/>&nbsp;</td>
+            				<td align="center" class="listtd"><c:out value="${item.empPosition}"/>&nbsp;</td>
+            				<td align="center" class="listtd"><c:out value="${item.empHireDate}"/>&nbsp;</td>
+            				<td align="center" class="listtd"><c:out value="${item.empRetireDate}"/>&nbsp;</td>
+            				<td align="center" class="listtd"><c:out value="${item.empWork}"/>&nbsp;</td>
             			</tr>
         			</c:forEach>
         		</table>
@@ -155,9 +123,9 @@
         	</div>
         	<div id="sysbtn">
         	  <ul>
-        	      <li>
+        	      <li><!-- 등록 버튼 -->
         	          <span class="btn_blue_l">
-        	              <a href="javascript:fn_egov_addView();"><spring:message code="button.create" /></a>
+        	              <a href="insertEmp.do"><spring:message code="button.create" /></a>
                           <img src="<c:url value='/images/egovframework/example/btn_bg_r.gif'/>" style="margin-left:6px;" alt=""/>
                       </span>
                   </li>

@@ -2,22 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.digital.insa.service.impl.emp.EmpMapper">
 
-	<insert id="insertSample" parameterType="map">
-
-			INSERT INTO SAMPLE
-				( ID
-				  , NAME
-				  , DESCRIPTION
-				  , USE_YN
-				  , REG_USER )
-			VALUES ( #{id}
-				  , #{name}
-				  , #{description}
-				  , #{useYn}
-				  , #{regUser} )
-
+	<insert id="insertEmp" parameterType="empVO">
+		<![CDATA[
+			INSERT INTO INSA(EMP_NO, 
+				EMP_NAME, 
+				EMP_ENG_NAME, 
+				EMP_EMAIL, 
+				EMP_PHONE, 
+				EMP_SEX, 
+				EMP_RANK, 
+				EMP_POSITION, 
+				EMP_HIRE_DATE, 
+				EMP_RETIRE_DATE, 
+				EMP_WORK) 
+			VALUES(#{empNo}, 
+				   #{empName}, 
+				   #{empEngName}, 
+				   #{empEmail}, 
+				   #{empPhone},  
+				   #{empSex}, 
+				   #{empRank}, 
+				   #{empPosition}, 
+				   replace(#{empHireDate}, '-', '/'), 
+				   replace(#{empRetireDate}, '-', '/'), 
+				   #{empWork} )
+		]]>
 	</insert>
-
+<!--  
 	<update id="updateSample">
 
 			UPDATE SAMPLE
@@ -35,22 +46,31 @@
 			WHERE ID=#{id}
 
 	</delete>
-
-	<select id="selectEmp" resultType="egovMap">
+-->
+	<select id="selectEmp" parameterType="empVO" resultType="egovMap">
 
 			SELECT
-				COMM_CD, COMM_NM
-			FROM TB_COMMCD
-			WHERE COMM_CD='AA001'
+				EMP_NO
+				  , EMP_NAME
+				  , EMP_ENG_NAME
+				  , EMP_EMAIL
+				  , EMP_PHONE
+				  , EMP_SEX
+				  , EMP_RANK
+				  , EMP_POSITION
+				  , EMP_HIRE_DATE
+				  , EMP_RETIRE_DATE
+				  , EMP_WORK
+			FROM INSA
+			WHERE EMP_NO = #{empNo}
 
 	</select>
 
-	<select id="selectSampleList" parameterType="searchVO" resultType="egovMap">
-
-			SELECT
-				ID, NAME, DESCRIPTION, USE_YN, REG_USER
-			FROM SAMPLE
-			WHERE 1=1
+	<select id="selectEmpList" parameterType="empVO" resultType="map">
+		<![CDATA[
+			SELECT * FROM INSA
+		]]>
+			<!--  
 			<if test="searchKeyword != null and searchKeyword != ''">
 		        <choose>
 		            <when test="searchCondition == 0">
@@ -61,10 +81,19 @@
 					</when>
 				</choose>
 			</if>
-			ORDER BY ID ASC
-			LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+			-->
 	</select>
-
+	<!-- 
+	<select id="getNextEmpId" resultType="egovMap">
+		select 
+    		nvl((select to_number(max(emp_no)) + 1
+        from tb_insa 
+        where emp_no like to_char(sysdate, 'yyyyMMdd') || '%')
+        	,  to_char(sysdate, 'yyyyMMdd')||'01') as next_emp_no
+		from dual;
+	</select>
+	-->
+<!--  
 	<select id="selectSampleListTotCnt" parameterType="searchVO" resultType="int">
 
 			SELECT COUNT(*) totcnt
@@ -81,5 +110,5 @@
 				</choose>
 			</if>
 	</select>
-
+-->
 </mapper>

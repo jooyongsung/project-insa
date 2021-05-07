@@ -27,9 +27,8 @@ import kr.co.digital.insa.vo.emp.SearchVO;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
 
 /**
  * @Class Name : EmpServiceImpl.java
@@ -50,8 +49,6 @@ import org.springframework.stereotype.Service;
 
 @Service("empService")
 public class EmpServiceImpl extends EgovAbstractServiceImpl implements EmpService {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(EmpServiceImpl.class);
 	
 	/**
 	 * EmpMapper
@@ -70,24 +67,31 @@ public class EmpServiceImpl extends EgovAbstractServiceImpl implements EmpServic
 	/** ID Generation */
 	@Resource(name = "egovIdGnrService")
 	private EgovIdGnrService egovIdGnrService;
-
+	
 	/**
 	 * 글을 등록한다.
 	 * @param vo - 등록할 정보가 담긴 EmpVO
 	 * @return 등록 결과
 	 * @exception Exception
 	 */
+
 	@Override
-	public String insertEmp(EmpVO vo) throws Exception {
-		LOGGER.debug(vo.toString());
-
+	public void insertEmp(EmpVO empVO) throws Exception {
+		
 		/** ID Generation Service */
-		String id = egovIdGnrService.getNextStringId();
-		vo.setId(id);
-		LOGGER.debug(vo.toString());
-
-		empDAO.insertEmp(vo);
-		return id;
+		//String id = egovIdGnrService.getNextStringId();
+		//vo.setId(id);
+		
+//		String empNo = empMapper.getNextEmpId();
+//		vo.setEmpNo(empNo);
+		
+		System.out.println(empVO);
+		
+		int result = empMapper.insertEmp(empVO);
+		
+		System.out.println("~~~~~~~" + result);
+		
+//		return empNo;
 	}
 
 	/**
@@ -98,7 +102,7 @@ public class EmpServiceImpl extends EgovAbstractServiceImpl implements EmpServic
 	 */
 	@Override
 	public void updateEmp(EmpVO vo) throws Exception {
-		empDAO.updateEmp(vo);
+		empMapper.updateEmp(vo);
 	}
 
 	/**
@@ -109,7 +113,7 @@ public class EmpServiceImpl extends EgovAbstractServiceImpl implements EmpServic
 	 */
 	@Override
 	public void deleteEmp(EmpVO vo) throws Exception {
-		empDAO.deleteEmp(vo);
+		empMapper.deleteEmp(vo);
 	}
 
 	/**
@@ -118,9 +122,14 @@ public class EmpServiceImpl extends EgovAbstractServiceImpl implements EmpServic
 	 * @return 조회한 글
 	 * @exception Exception
 	 */
+	
 	@Override
-	public List<Map>  selectEmp(EmpVO vo) throws Exception {
-		return empMapper.selectEmp(vo);
+	public EmpVO selectEmp(EmpVO vo) throws Exception {
+		EmpVO empVO = empMapper.selectEmp(vo);
+		
+		if(empVO == null)
+			throw processException("info.nodata.msg");
+		return empVO;
 	}
 
 	/**
@@ -129,9 +138,11 @@ public class EmpServiceImpl extends EgovAbstractServiceImpl implements EmpServic
 	 * @return 글 목록
 	 * @exception Exception
 	 */
+
 	@Override
-	public List<?> selectEmpList(SearchVO searchVO) throws Exception {
-		return empDAO.selectEmpList(searchVO);
+	public List<Map> selectEmpList(EmpVO empVO) throws Exception {
+		System.out.println(empMapper.selectEmpList(empVO));
+		return empMapper.selectEmpList(empVO);
 	}
 
 	/**
@@ -142,7 +153,7 @@ public class EmpServiceImpl extends EgovAbstractServiceImpl implements EmpServic
 	 */
 	@Override
 	public int selectEmpListTotCnt(SearchVO searchVO) {
-		return empDAO.selectEmpListTotCnt(searchVO);
+		return empMapper.selectEmpListTotCnt(searchVO);
 	}
 
 }
