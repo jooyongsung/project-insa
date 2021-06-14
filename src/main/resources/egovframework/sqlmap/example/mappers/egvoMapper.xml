@@ -62,7 +62,6 @@
 				</choose>
 			</if>
 			ORDER BY ID ASC
-			LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
 	</select>
 
 	<select id="selectSampleListTotCnt" parameterType="searchVO" resultType="int">

@@ -4,7 +4,7 @@
 
 	<insert id="insertEmp" parameterType="empVO">
 		<![CDATA[
-			INSERT INTO INSA(EMP_NO, 
+			INSERT INTO TB_INSA(EMP_NO, 
 				EMP_NAME, 
 				EMP_ENG_NAME, 
 				EMP_EMAIL, 
@@ -62,14 +62,14 @@
 				  , EMP_HIRE_DATE
 				  , EMP_RETIRE_DATE
 				  , EMP_WORK
-			FROM INSA
+			FROM TB_INSA
 			WHERE EMP_NO = #{empNo}
 
 	</select>
 
 	<select id="selectEmpList" parameterType="empVO" resultType="map">
 		<![CDATA[
-			SELECT * FROM INSA
+			SELECT * FROM TB_INSA
 		]]>
 			<!--  
 			<if test="searchKeyword != null and searchKeyword != ''">
